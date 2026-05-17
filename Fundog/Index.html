@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUN DOG - Estética Canina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+.btn-wsp {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: transform 0.3s ease;
+}
+
+
+.btn-wsp img {
+    width: 35px;
+    height: 35px;
+}
+
+.btn-wsp:hover {
+    transform: scale(1.1);
+}
+
+
+        .floating-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .paw {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+
+        .paw:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .paw:nth-child(2) { left: 25%; animation-delay: 2s; }
+        .paw:nth-child(3) { left: 45%; animation-delay: 4s; }
+        .paw:nth-child(4) { left: 65%; animation-delay: 1s; }
+        .paw:nth-child(5) { left: 85%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(234, 0, 251, 0.85), rgba(136, 126, 6, 0.85)), 
+                        url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgb(46, 2, 61) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 500px;
+            height: 200px;
+            background: linear-gradient(135deg, #022845, #080250, #750582);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            box-shadow: 0 15px 60px rgba(255, 215, 0, 0.6),
+                        0 0 0 15px rgba(255, 255, 255, 0.2),
+                        0 0 0 30px rgba(255, 255, 255, 0.1);
+            border: 6px solid white;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+        }
+
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #7430cd;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 10%; right: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { bottom: 15%; left: 5%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 50%; right: -10%; animation-delay: 1s; }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(34, 5, 114, 0.8),
+                         0 0 40px rgba(254, 141, 4, 0.6),
+                         3px 3px 6px rgba(255, 145, 0, 0.5);
+            background: linear-gradient(45deg, #fb0d00, #1e0255, #FFD700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #4B0082;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s;
+            border: 3px solid white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.6);
+        }
+
+        
+        nav {
+            background: linear-gradient(135deg, #880288, #4B0082, #1e3a8a);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 10px 25px;
+            border-radius: 25px;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #39323e;
+            transform: translateY(-3px);
+        }
+
+        
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff, #ffffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        
+        #nosotros {
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            position: relative;
+        }
+
+        #nosotros::before {
+            content: '🐾';
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            font-size: 150px;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(75, 0, 130, 0.3);
+            border-color: #FFD700;
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        .card h3 {
+            color: #8B008B;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p strong {
+            color: #7e4f9f;
+            font-size: 1.15rem;
+        }
+
+        
+        #horarios {
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #horarios::before {
+            content: '⏰';
+            position: absolute;
+            top: 20%;
+            left: -50px;
+            font-size: 300px;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        #horarios h2 {
+            color: white;
+            background: none;
+            -webkit-text-fill-color: white;
+        }
+
+        #horarios h2::after {
+            background: linear-gradient(90deg, white, rgba(255, 255, 255, 0.5));
+        }
+
+        .schedule-intro {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .schedule-table {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+            margin-top: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #8B008B, #4B0082);
+            color: white;
+            padding: 25px;
+            text-align: left;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 25px;
+            border-bottom: 2px solid #f0e7ff;
+            color: #333;
+            font-size: 1.15rem;
+            transition: all 0.3s;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            color: #7e16ce;
+            font-size: 1.2rem;
+        }
+
+        tr:hover td {
+            background: linear-gradient(90deg, #f3e7ff, #e0f2fe);
+            transform: scale(1.02);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background: #ffffff;
+        }
+
+                #video {
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            position: relative;
+        }
+
+        #video::before {
+            content: '🎬';
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            font-size: 200px;
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        .video-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 2rem;
+            color: #fcf9ff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(61, 53, 80, 0.5);
+        }
+
+        .video-container {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.3s;
+        }
+
+        .video-container:hover {
+            transform: perspective(1000px) rotateY(2deg) scale(1.02);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        #contacto {
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            color: rgb(255, 255, 255);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contacto::before {
+            content: '💬';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 400px;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        #contacto h2 {
+            color: white;
+            background: none;
+            -webkit-text-fill-color: white;
+        }
+
+        #contacto h2::after {
+            background: linear-gradient(90deg, #0c0333, #210552);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-text {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .btn-facebook {
+            display: inline-block;
+            background: linear-gradient(135deg, #1877F2, #0d5dbf);
+            color: white;
+            padding: 20px 60px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(24, 119, 242, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-facebook::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-facebook:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-facebook:hover {
+            background: linear-gradient(135deg, #0d5dbf, #1877F2);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(24, 119, 242, 0.6);
+        }
+
+        .btn-facebook span {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        footer {
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .footer-love {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.6;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #150864, #4c4ad2);
+            color: #674007;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(50, 36, 104, 0.4);
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(9, 5, 104, 0.6);
+        }
+
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .logo {
+                width: 170px;
+                height: 170px;
+                font-size: 60px;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 8px 0;
+            }
+
+            .video-container iframe {
+                height: 300px;
+            }
+
+            table {
+                font-size: 0.95rem;
+            }
+
+            th, td {
+                padding: 18px 12px;
+            }
+
+            .card {
+                padding: 30px;
+            }
+
+            .btn-facebook {
+                padding: 18px 40px;
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .paw {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-bg">
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+    </div>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo-container">
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <img src="WhatsApp_Image_2026-03-07_at_7.49.48_PM-removebg-preview.png" alt="FUN DOG Logo" style="width: 100%; height: 200%;">
+            </div>
+            <p>✨ Tu Estética Canina de Confianza ✨</p>
+            <div class="hero-buttons">
+                <a href="#nosotros" class="btn-primary">Conócenos</a>
+                <a href="#horarios" class="btn-primary">Horarios</a>
+            </div>
+        </div>
+    </section>
+
+
+    <nav>
+        <ul>
+            <li><a href="#nosotros">🏠 Nosotros</a></li>
+            <li><a href="Servicios.html">🕐 Servicios</a></li>
+            <li><a href="Productos.html">🎥 Productos</a></li>
+            <li><a href="Galeria.html">📱 Galería
+            </a></li>
+        </ul>
+    </nav>
+
+
+    <section id="nosotros">
+        <div class="container">
+            <h2>Conócenos</h2>
+            <p class="section-subtitle">Dedicados al bienestar y felicidad de tu mejor amigo</p>
+            <div class="about-content">
+                <div class="card">
+                    <span class="card-icon">🎯</span>
+                    <h3>Misión</h3>
+                    <p>La misión de WALKING DOG es poder vender las cosas que desean los clientes para sus mascotas, ofreciendo productos de calidad que mejoren la vida de cada peludo.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🚀</span>
+                    <h3>Visión</h3>
+                    <p>La visión de WALKING DOG es poder crecer en el mercado y poder vender más cosas para las mascotas, convirtiéndonos en la opción número uno para el cuidado canino.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">💎</span>
+                    <h3>Valores</h3>
+                    <p><strong>Respeto:</strong> Hacia el cliente para tratarlo lo mejor posible, creando una experiencia excepcional.</p>
+                    <p><strong>Tolerancia:</strong> Hacia el cliente para no perder la calma, manteniendo siempre un ambiente positivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="horarios">
+        <div class="container">
+            <h2>Horarios de Atención</h2>
+            <p class="schedule-intro">¡Estamos aquí para ti y tu mascota! Visítanos en nuestro horario de atención.</p>
+            <div class="schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>📅 Día</th>
+                            <th>⏰ Horario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lunes a Martes</td>
+                            <td>9:00 AM - 9:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sábado a Domingo</td>
+                            <td>10:00 AM - 9:00 PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="video">
+        <div class="container">
+            <h2>Conoce Más de Nosotros</h2>
+            <div class="video-wrapper">
+                <p class="video-title">🎥 Descubre nuestra pasión por el cuidado canino</p>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1180519547610646&show_text=false&width=734" 
+                        scrolling="no" 
+                        frameborder="0" 
+                        allowfullscreen="true" 
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+<a href="https://wa.me/5215611773561" class="btn-wsp" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+    <section id="contacto">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Síguenos en Facebook</h2>
+                <p class="contact-text">Mantente al día con nuestras promociones, consejos para el cuidado de tu mascota y todas nuestras novedades. ¡Te esperamos en nuestra comunidad!</p>
+                <a href="https://www.facebook.com/share/1Byruf44k4/" target="_blank" class="btn-facebook">
+                    <span>📘 !Visita Nuestra Página de Facebook¡</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+  
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🐕 FUN DOG</div>
+            <p class="footer-text">&copy; 2026 FUN DOG - Estética Canina</p>
+            <p class="footer-text">Todos los derechos reservados</p>
+            <p class="footer-love">Hecho con ❤️ y con lo mejor para tu lomito🐕</p>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        })
+
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    }, index * 100); 
+                }
+            
+        }
+    )  
+
+            }
+        )
+        

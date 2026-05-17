@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUN DOG - Galería de Razas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+.btn-wsp {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: transform 0.3s ease;
+}
+
+
+.btn-wsp img {
+    width: 35px;
+    height: 35px;
+}
+
+.btn-wsp:hover {
+    transform: scale(1.1);
+}
+
+
+        .floating-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .paw {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+
+        .paw:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .paw:nth-child(2) { left: 25%; animation-delay: 2s; }
+        .paw:nth-child(3) { left: 45%; animation-delay: 4s; }
+        .paw:nth-child(4) { left: 65%; animation-delay: 1s; }
+        .paw:nth-child(5) { left: 85%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.85), rgba(75, 0, 130, 0.85)), 
+                        url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            position: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FF6347);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            box-shadow: 0 15px 60px rgba(255, 215, 0, 0.6),
+                        0 0 0 15px rgba(255, 255, 255, 0.2),
+                        0 0 0 30px rgba(255, 255, 255, 0.1);
+            border: 6px solid white;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 10%; right: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { bottom: 15%; left: 5%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 50%; right: -10%; animation-delay: 1s; }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
+                         0 0 40px rgba(255, 215, 0, 0.6),
+                         3px 3px 6px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #FFD700, #87CEEB, #FFD700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #4B0082;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s;
+            border: 3px solid white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.6);
+        }
+
+
+        nav {
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 10px 25px;
+            border-radius: 25px;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '🐾';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #4B0082;
+            transform: translateY(-3px);
+        }
+
+
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: center;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg,#dca8dc, #4B0082, #1e3a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+
+        #galeria {
+            background: linear-gradient(135deg, #f3e7ff, #e0f2fe);
+            position: relative;
+        }
+
+        #galeria::before {
+            content: '🐾';
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            font-size: 150px;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .gallery-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(75, 0, 130, 0.3);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-card:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to bottom, transparent, rgba(75, 0, 130, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+        }
+
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #4B0082;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .gallery-content {
+            padding: 30px;
+        }
+
+        .gallery-title {
+            font-size: 2rem;
+            color: #8B008B;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gallery-title .icon {
+            font-size: 1.8rem;
+        }
+
+        .gallery-description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        .gallery-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .feature-tag {
+            background: linear-gradient(135deg, #E6E6FA, #F0F8FF);
+            color: #4B0082;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid #8B008B;
+        }
+
+
+        #info {
+            background: linear-gradient(135deg, #dca8dc, #4B0082, #1e3a8a);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #info::before {
+            content: '🐕';
+            position: absolute;
+            top: 20%;
+            left: -50px;
+            font-size: 300px;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        #info h2 {
+            color: white;
+            background: none;
+            -webkit-text-fill-color: white;
+        }
+
+        #info h2::after {
+            background: linear-gradient(90deg, white, rgba(255, 255, 255, 0.5));
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .info-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .info-box:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-10px);
+        }
+
+        .info-box .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .info-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .info-box p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: #4B0082;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            color: #8B008B;
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+
+        footer {
+            background: linear-gradient(135deg, #1a1a1a, #2d1b4e);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .footer-love {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.6;
+        }
+
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #4B0082;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+        }
+
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .logo {
+                width: 170px;
+                height: 170px;
+                font-size: 60px;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 8px 0;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .gallery-image {
+                height: 250px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .paw {
+                font-size: 25px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .modal-image {
+                height: 300px;
+            }
+
+            .modal-body {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-bg">
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+    </div>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo-container">
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="logo">🐕</div>
+            </div>
+
+            <p>✨ Galería de Razas Caninas ✨</p>
+            <div class="hero-buttons">
+                <a href="#galeria" class="btn-primary">🖼️ Galería</a>
+                <a href="#info" class="btn-primary">ℹ️ Información</a>
+            </div>
+        </div>
+    </section>
+
+
+    <nav>
+        <ul>
+            <li><a href="Index.html">🏠 Nosotros</a></li>
+            <li><a href="Servicios.html">🕐 Servicios</a></li>
+             <li><a href="Productos.html">🎥 Productos</a></li>
+        </ul>
+    </nav>
+
+
+    <section id="galeria">
+        <div class="container">
+            <h2>Razas que Atendemos</h2>
+            <p class="section-subtitle">Especialistas en el cuidado de todas las razas caninas</p>
+            
+            <div class="gallery-grid">
+
+                <div class="gallery-card" onclick="openModal(0)">
+                    <img src="https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=800" alt="Golden Retriever" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">🦮</span>
+                            Golden Retriever
+                        </h3>
+                        <p class="gallery-description">
+                            Raza amigable y leal, perfecta para familias. Requiere cuidado especial de su pelaje dorado y sedoso.
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Pelaje Largo</span>
+                            <span class="feature-tag">Amigable</span>
+                            <span class="feature-tag">Activo</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="gallery-card" onclick="openModal(1)">
+                    <img src="https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=800" alt="Husky Siberiano" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">🐺</span>
+                            Husky Siberiano
+                        </h3>
+                        <p class="gallery-description">
+                            Energético y hermoso, con ojos cautivadores. Necesita cepillado frecuente y ejercicio diario.
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Pelaje Doble</span>
+                            <span class="feature-tag">Enérgico</span>
+                            <span class="feature-tag">Independiente</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="gallery-card" onclick="openModal(2)">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800" alt="Bulldog Francés" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">🐶</span>
+                            Bulldog Francés
+                        </h3>
+                        <p class="gallery-description">
+                            Compacto y cariñoso, ideal para apartamentos. Requiere limpieza especial de sus pliegues faciales.
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Pelaje Corto</span>
+                            <span class="feature-tag">Cariñoso</span>
+                            <span class="feature-tag">Adaptable</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="gallery-card" onclick="openModal(3)">
+                    <img src="pastor.jpg" alt="Pastor Alemán" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">🦴</span>
+                            Pastor Alemán
+                        </h3>
+                        <p class="gallery-description">
+                            Inteligente y protector, excelente compañero. Necesita cepillado regular y baños mensuales.
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Inteligente</span>
+                            <span class="feature-tag">Leal</span>
+                            <span class="feature-tag">Guardián</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" onclick="openModal(1)">
+                    <img src="Meztizo.jpg" alt="Perritos Mestizos" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">🐕</span>
+                            Perritos Mestizos
+                        </h3>
+                        <p class="gallery-description">
+                            Energético y hermoso, con ojos cautivadores. Necesita cuidado de digestión y pelaje espeso
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Pelaje espeso</span>
+                            <span class="feature-tag">Confiado</span>
+                            <span class="feature-tag">Independiente</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="gallery-card" onclick="openModal(4)">
+                    <img src="https://image.petmd.com/files/styles/978x550/public/2023-01/toy-poodle.jpg" alt="Poodle" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">✨</span>
+                            Poodle
+                        </h3>
+                        <p class="gallery-description">
+                            Elegante e inteligente, hipoalergénico. Requiere cortes profesionales y cuidado constante del pelaje.
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Hipoalergénico</span>
+                            <span class="feature-tag">Elegante</span>
+                            <span class="feature-tag">Inteligente</span>
+                        </div>
+                    </div>
+                </div>
+<a href="https://wa.me/5215611773561" class="btn-wsp" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+                <div class="gallery-card" onclick="openModal(5)">
+                    <img src="chihuahua.jpg" alt="Chihuahua" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="overlay-badge">Ver más</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">
+                            <span class="icon">🐕‍🦺</span>
+                            Chihuahua
+                        </h3>
+                        <p class="gallery-description">
+                            Pequeño pero valiente, lleno de personalidad. Cuidado fácil pero necesita atención a sus dientes.
+                        </p>
+                        <div class="gallery-features">
+                            <span class="feature-tag">Pequeño</span>
+                            <span class="feature-tag">Valiente</span>
+                            <span class="feature-tag">Portátil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="info">
+        <div class="container">
+            <h2>¿Por Qué Elegirnos?</h2>
+            <div class="info-content">
+                <p class="info-text">
+                    🐾Somos una empresa dedicada al cuidado de tu lomito. Tu lomito tendra un lugar donde quedarse 
+                   mientras  estas fuera, con atencion y cuidados personalizados dependiendo de la personalidad de tu lomito.🐕
